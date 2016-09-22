@@ -7,15 +7,8 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 #---------------------initialization------------------------------
 n = 130
-primes=[]
-for num in range(n^2,2*n^2):
-    for i in range(2,num):
-        if (num % i) == 0:
-            break
-        else:
-            primes.append(num)
-primesNonDuplicates = list(set(primes))
-p = random.choice(primesNonDuplicates)
+primes=prime_range(n^2,2*n^2)
+p = random.choice(primes)
 print "Modulo p is ",p
 e_arbitrary = 5           #can be anything, it's arbitrary
 m = floor(((1+e_arbitrary)*(n+1)*log(p)).n())
