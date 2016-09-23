@@ -6,7 +6,7 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 
 #---------------------initialization------------------------------
-n = 130
+n = 50
 primes=prime_range(n^2,2*n^2)
 p = random.choice(primes)
 print "Modulo p is ",p
@@ -85,20 +85,13 @@ dm= vector(QQ,Messagelength) #decrypted message
 #this means that if a value belongs between p/4 and 3p/4 then it is closer to p/2 than 0
 #  0____p/4____p/2____3p/4____p
 for i in range(Messagelength):
-    print floor(p/4),Mod(c2[i]-c1[i].inner_product(s),p), floor(3*p/4)        #this line prints p/4, value, 3p/4. If the value belongs in between then it is converted to 1        
-    if Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)<floor(p/4):                 #determine if value is closer to zero
+    value=Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)
+    #print floor(p/4),value, floor(3*p/4)        #this line prints p/4, value, 3p/4. If the value belongs in between then it is converted to 1        
+    if value<floor(p/4):                 #determine if value is closer to zero
         dm[i]= 0 
-    elif Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)>floor(3*p/4):             #determine if value is closer to p, thus to 0
+    elif value>floor(3*p/4):             #determine if value is closer to p, thus to 0
         dm[i]=0
-    elif Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)>floor(p/4):
-        if Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)<floor(3*p/4):
-            dm[i]=1
-    elif Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)<floor(3*p/4):
-        if Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)>floor(p/4):
-            dm[i]=1
-    elif Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)==floor(3*p/4):
-        dm[i]=1
-    elif Mod(c2[i]-Mod(c1[i].inner_product(s),p),p)==floor(p/4):
+    else:
         dm[i]=1
 print "Decrypted Message is: ",dm
 print "Original Message is: ",Message
